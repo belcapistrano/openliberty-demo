@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Liberty Demo - User Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Open Liberty Demo Application</h1>
+            <p class="subtitle">RESTful User Management System</p>
+        </header>
+
+        <div class="health-status">
+            <h3>Service Health</h3>
+            <div id="healthStatus" class="status-badge">Checking...</div>
+        </div>
+
+        <main>
+            <section class="api-section">
+                <h2>User Management</h2>
+
+                <div class="controls">
+                    <button onclick="loadUsers()" class="btn btn-primary">Load All Users</button>
+                    <button onclick="toggleAddForm()" class="btn btn-success">Add New User</button>
+                </div>
+
+                <div id="addUserForm" class="form-container hidden">
+                    <h3>Add New User</h3>
+                    <form onsubmit="addUser(event)">
+                        <input type="text" id="username" placeholder="Username" required>
+                        <input type="email" id="email" placeholder="Email" required>
+                        <input type="text" id="fullName" placeholder="Full Name" required>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-success">Create User</button>
+                            <button type="button" onclick="toggleAddForm()" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="usersList" class="users-list"></div>
+            </section>
+
+            <section class="api-docs">
+                <h2>API Endpoints</h2>
+                <div class="endpoint-list">
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/users</span>
+                        <span class="description">Get all users</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/users/{id}</span>
+                        <span class="description">Get user by ID</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/users</span>
+                        <span class="description">Create new user</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method put">PUT</span>
+                        <span class="path">/api/users/{id}</span>
+                        <span class="description">Update user</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method delete">DELETE</span>
+                        <span class="path">/api/users/{id}</span>
+                        <span class="description">Delete user</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/health</span>
+                        <span class="description">Health check</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Powered by Open Liberty | Jakarta EE 10 | MicroProfile 6.1</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

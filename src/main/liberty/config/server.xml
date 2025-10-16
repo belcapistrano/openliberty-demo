@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="Open Liberty Demo Server">
+
+    <!-- Enable features -->
+    <featureManager>
+        <feature>jakartaee-10.0</feature>
+        <feature>microProfile-6.1</feature>
+    </featureManager>
+
+    <!-- HTTP endpoint -->
+    <httpEndpoint id="defaultHttpEndpoint"
+                  httpPort="9080"
+                  httpsPort="9443"/>
+
+    <!-- Application configuration -->
+    <application location="openliberty-demo.war" type="war" id="openliberty-demo" name="openliberty-demo">
+        <classloader classProviderRef="global"/>
+    </application>
+
+    <!-- Default SSL configuration enables trust for default certificates from the Java runtime -->
+    <ssl id="defaultSSLConfig" trustDefaultCerts="true"/>
+
+    <!-- Automatically expand WAR files and EAR files -->
+    <applicationManager autoExpand="true"/>
+
+    <!-- Configure session management -->
+    <httpSession cookieSecure="false" cookieHttpOnly="true"/>
+
+    <!-- Enable CORS for development -->
+    <cors domain="/api"
+          allowedOrigins="*"
+          allowedMethods="GET, POST, PUT, DELETE, OPTIONS"
+          allowedHeaders="Content-Type, Authorization"
+          allowCredentials="true"
+          maxAge="3600"/>
+</server>
