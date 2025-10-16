@@ -1,0 +1,42 @@
+{
+  "serviceName": "openliberty-demo-service",
+  "cluster": "openliberty-demo-cluster",
+  "taskDefinition": "openliberty-demo:LATEST",
+  "desiredCount": 2,
+  "launchType": "FARGATE",
+  "platformVersion": "LATEST",
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": [
+        "subnet-xxxxxxxxx",
+        "subnet-yyyyyyyyy"
+      ],
+      "securityGroups": [
+        "sg-xxxxxxxxx"
+      ],
+      "assignPublicIp": "ENABLED"
+    }
+  },
+  "loadBalancers": [
+    {
+      "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:YOUR_ACCOUNT_ID:targetgroup/openliberty-demo-tg/xxxxxxxxxxxxxx",
+      "containerName": "openliberty-demo",
+      "containerPort": 9080
+    }
+  ],
+  "serviceRegistries": [],
+  "deploymentConfiguration": {
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 100,
+    "deploymentCircuitBreaker": {
+      "enable": true,
+      "rollback": true
+    }
+  },
+  "deploymentController": {
+    "type": "ECS"
+  },
+  "enableExecuteCommand": true,
+  "enableECSManagedTags": true,
+  "propagateTags": "SERVICE"
+}

@@ -1,0 +1,51 @@
+{
+  "family": "openliberty-demo",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::YOUR_ACCOUNT_ID:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::YOUR_ACCOUNT_ID:role/ecsTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "openliberty-demo",
+      "image": "YOUR_ECR_URI/openliberty-demo:latest",
+      "portMappings": [
+        {
+          "containerPort": 9080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "JAVA_OPTS",
+          "value": "-Xmx512m -Xms256m"
+        },
+        {
+          "name": "WLP_LOGGING_CONSOLE_LOGLEVEL",
+          "value": "info"
+        }
+      ],
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:9080/openliberty-demo/api/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 10,
+        "retries": 3,
+        "startPeriod": 60
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/openliberty-demo",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "stopTimeout": 30
+    }
+  ]
+}

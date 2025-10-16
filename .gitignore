@@ -41,3 +41,8 @@ hs_err_pid*
 # Test
 *.log
 test-output/
+
+# Deployment temporary files
+deployment/aws/task-definition-updated.json
+deployment/aws/task-definition-final.json
+deployment/aws/service-definition-updated.json
